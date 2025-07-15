@@ -1,6 +1,6 @@
 # URL Shortener
 
-A simple URL shortener built with React and Node.js.
+A full-stack URL shortener application built with React, Node.js, and MongoDB. This project allows users to shorten long URLs, generate custom shortcodes, track click statistics, and set expiration dates for the links.
 
 ## Screenshots
 
