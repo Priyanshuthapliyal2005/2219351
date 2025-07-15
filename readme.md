@@ -1,242 +1,121 @@
-# URL Shortener - Assessment Project
+# URL Shortener
 
-A full-stack URL shortener application built with React, Node.js, Express, and MongoDB.
+A simple URL shortener built with React and Node.js.
 
-## 🚀 Features
+## Screenshots
 
-- **URL Shortening**: Convert long URLs into short, manageable links
-- **Custom Short Codes**: Option to create custom short codes or auto-generate them
-- **Click Tracking**: Track clicks with detailed analytics including IP, user agent, and referrer
-- **Expiration Management**: Set custom expiration times for URLs
-- **Statistics Dashboard**: View comprehensive statistics for all shortened URLs
-- **Health Monitoring**: Built-in health check endpoint
-- **Rate Limiting**: Protection against abuse with configurable rate limiting
-- **Security**: Helmet.js for security headers, CORS protection, and input validation
+<img width="1919" height="939" alt="Screenshot 2025-07-15 121734" src="https://github.com/user-attachments/assets/07136264-647b-4379-85f8-f913b4229004" />
+<img width="1881" height="961" alt="Screenshot 2025-07-15 121742" src="https://github.com/user-attachments/assets/7ff122e8-483c-4e88-b259-dec812071184" />
+<img width="1193" height="455" alt="Screenshot 2025-07-15 121724" src="https://github.com/user-attachments/assets/7419e651-0ab9-4b74-b718-3bdfc04da303" />
 
-## 🏗️ Architecture
+https://github.com/user-attachments/assets/25da0795-da1c-46f3-b898-4353565a7ffd
 
-### Frontend
-- **Framework**: React 18 with TypeScript
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS + Material-UI
-- **HTTP Client**: Axios
-- **Icons**: Lucide React + Material-UI Icons
+## What it does
+
+- Shortens long URLs
+- Custom short codes or auto-generated ones
+- Click tracking and statistics
+- Expiration dates for URLs
+- Health monitoring
+
+## Tech Stack
+
+**Frontend:**
+- React with TypeScript
+- Material-UI for styling
+- Vite for building
+- Axios for API calls
+
+**Backend:**
+- Node.js with Express
+- MongoDB for database
+- Rate limiting for security
+
+**Logging:**
+- Custom middleware for evaluation service
+
+## Project Structure
+
+```
+backend/
+  - server.js (main server file)
+  - models/url.js (database model)
+  - package.json
+
+frontend/
+  - src/
+    - components/ (React components)
+    - api.ts (API calls)
+    - logger.ts (logging)
+  - package.json
+
+logging-middleware/
+  - logger.js (evaluation service logging)
+```
+
+## Setup
 
 ### Backend
-- **Runtime**: Node.js
-- **Framework**: Express.js 4.x
-- **Database**: MongoDB with Mongoose ODM
-- **Security**: Helmet.js, CORS, Express Rate Limit
-- **Logging**: Morgan
-- **Environment**: dotenv for configuration
-
-## 📁 Project Structure
-
-```
-├── backend/
-│   ├── models/
-│   │   └── url.js           # MongoDB URL schema
-│   ├── server.js            # Express server with all routes
-│   ├── package.json         # Backend dependencies
-│   └── .env                 # Environment variables
-│
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── HealthStatus.tsx      # Health check component
-│   │   │   ├── StatisticsTable.tsx   # Statistics display
-│   │   │   └── UrlShortenerForm.tsx  # Main form component
-│   │   ├── api.ts           # API client functions
-│   │   ├── types.ts         # TypeScript type definitions
-│   │   ├── App.tsx          # Main application component
-│   │   └── main.tsx         # Application entry point
-│   ├── package.json         # Frontend dependencies
-│   └── vite.config.ts       # Vite configuration
-│
-└── README.md               # This file
-```
-
-## 🛠️ Installation & Setup
-
-### Prerequisites
-- Node.js (v18 or higher)
-- MongoDB (local or cloud instance)
-- npm or yarn package manager
-
-### Backend Setup
-
-1. Navigate to the backend directory:
-   ```bash
-   cd backend
+1. Go to backend folder: `cd backend`
+2. Install: `npm install`
+3. Create `.env` file:
    ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Create a `.env` file with the following variables:
-   ```env
-   MONGODB_URI=mongodb://localhost:27017/urlshortener
+   MONGODB_URI=your_mongodb_connection
    PORT=3001
-   NODE_ENV=development
-   CORS_ORIGIN=http://localhost:5173
-   RATE_LIMIT_WINDOW_MS=900000
-   RATE_LIMIT_MAX_REQUESTS=100
-   DEFAULT_VALIDITY_MINUTES=30
-   MAX_URLS_PER_REQUEST=5
-   SHORTCODE_LENGTH=6
-   MAX_SHORTCODE_LENGTH=10
-   MIN_SHORTCODE_LENGTH=3
+   ACCESS_TOKEN=your_evaluation_service_token
    ```
+4. Start: `npm start`
 
-4. Start the backend server:
-   ```bash
-   npm start
+### Frontend  
+1. Go to frontend folder: `cd frontend`
+2. Install: `npm install`
+3. Create `.env` file:
    ```
-
-### Frontend Setup
-
-1. Navigate to the frontend directory:
-   ```bash
-   cd frontend
+   VITE_ACCESS_TOKEN=your_evaluation_service_token
+   VITE_API_BASE_URL=http://localhost:3001
    ```
+4. Start: `npm run dev`
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+## API Endpoints
 
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
+- `POST /api/shorten` - Create short URL
+- `GET /api/shorturls` - Get all URLs  
+- `GET /r/:shortcode` - Redirect to original URL
+- `GET /health` - Health check
 
-## 🔧 Configuration
+## Environment Variables
 
-### Environment Variables
+**Backend:**
+- `MONGODB_URI` - Database connection
+- `ACCESS_TOKEN` - Evaluation service token
+- `PORT` - Server port (default 3001)
+- `CORS_ORIGIN` - Frontend URL
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `MONGODB_URI` | MongoDB connection string | Required |
-| `PORT` | Backend server port | 3001 |
-| `NODE_ENV` | Environment mode | development |
-| `CORS_ORIGIN` | Allowed CORS origin | http://localhost:5173 |
-| `RATE_LIMIT_WINDOW_MS` | Rate limit window in ms | 900000 (15 min) |
-| `RATE_LIMIT_MAX_REQUESTS` | Max requests per window | 100 |
-| `DEFAULT_VALIDITY_MINUTES` | Default URL expiration | 30 |
-| `MAX_URLS_PER_REQUEST` | Max URLs per batch | 5 |
-| `SHORTCODE_LENGTH` | Generated shortcode length | 6 |
+**Frontend:**
+- `VITE_ACCESS_TOKEN` - Evaluation token
+- `VITE_API_BASE_URL` - Backend URL
+## Logging
 
-## 📡 API Endpoints
+The app sends logs to the evaluation service for tracking. It logs things like:
+- API requests and responses
+- Errors and warnings  
+- User actions
 
-### Health Check
-- `GET /health` - Server health status
+## Development
 
-### URL Management
-- `POST /api/shorturls` - Create short URLs
-- `GET /api/shorturls` - Get all URLs with statistics
-- `GET /api/shorturls/:shortcode` - Get specific URL statistics
-- `DELETE /api/shorturls/:shortcode` - Delete a short URL
+To run both frontend and backend:
+1. Start backend: `cd backend && npm start`
+2. Start frontend: `cd frontend && npm run dev`
+3. Open http://localhost:5173
 
-### URL Redirection
-- `GET /r/:shortcode` - Redirect to original URL (with click tracking)
+## Deployment
 
-### API Request Examples
+You can deploy this to:
+- **Backend**: Render, Heroku, Railway
+- **Frontend**: Vercel, Netlify
 
-#### Create Short URL
-```bash
-POST /api/shorturls
-Content-Type: application/json
-
-{
-  "urls": ["https://example.com"],
-  "validity": 60,
-  "shortcode": "custom123"
-}
-```
-
-#### Get Statistics
-```bash
-GET /api/shorturls/abc123
-```
-
-## 🎨 Frontend Components
-
-- **UrlShortenerForm**: Main form for creating short URLs
-- **StatisticsTable**: Displays URL statistics in a table format
-- **HealthStatus**: Shows backend server health status
-
-## 🔐 Security Features
-
-- **Helmet.js**: Security headers protection
-- **CORS**: Cross-origin request protection
-- **Rate Limiting**: Prevents abuse and DoS attacks
-- **Input Validation**: URL and shortcode validation
-- **Error Handling**: Comprehensive error responses
-
-## 📊 Analytics & Tracking
-
-The application tracks the following metrics for each short URL:
-- Total click count
-- Click timestamps
-- User IP addresses
-- User agents
-- Referrer information
-- Clicks by hour distribution
-- Recent click history
-
-## 🚀 Development
-
-### Running in Development Mode
-
-1. Start the backend:
-   ```bash
-   cd backend && npm start
-   ```
-
-2. Start the frontend:
-   ```bash
-   cd frontend && npm run dev
-   ```
-
-3. Access the application at `http://localhost:5173`
-
-### Building for Production
-
-1. Build the frontend:
-   ```bash
-   cd frontend && npm run build
-   ```
-
-2. The backend can be deployed as-is with proper environment variables
-
-## 🧪 Testing
-
-Currently, the project uses basic validation and error handling. Future improvements could include:
-- Unit tests for components and API endpoints
-- Integration tests for the full application flow
-- E2E tests using tools like Cypress or Playwright
-
-## 📝 Future Enhancements
-
-- User authentication and authorization
-- Custom domains for short URLs
-- QR code generation
-- Bulk URL operations
-- Enhanced analytics dashboard
-- API rate limiting per user
-- URL preview functionality
-- Export statistics to CSV/PDF
-
-## 📄 License
-
-This project is created for assessment purposes.
-
-## 👤 Author
-
-Assessment Project - URL Shortener Application
+Make sure to set all the environment variables on your hosting platform.
 
 ---
 
-**Note**: This is an assessment project demonstrating full-stack web development skills with modern technologies including React, TypeScript, Node.js, Express, and MongoDB.
+*Built for campus hiring evaluation*
