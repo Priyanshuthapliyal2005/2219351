@@ -80,7 +80,7 @@ logging-middleware/
 
 - `POST /api/shorten` - Create short URL
 - `GET /api/shorturls` - Get all URLs  
-- `GET /r/:shortcode` - Redirect to original URL
+- `GET /:shortcode` - Redirect to original URL
 - `GET /health` - Health check
 
 ## Environment Variables
